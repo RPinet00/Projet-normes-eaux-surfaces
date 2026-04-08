@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nitrates & Phosphore – Qualité des eaux de surface</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="projet_eau_normes.css"/>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header id="app-header">
+    <div class="header-left">
+      <div class="header-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2C6 2 2 7 2 12s4 10 10 10 10-4.5 10-10S18 2 12 2z"/>
+          <path d="M2 12c3-3 5-4 10-4s7 1 10 4"/>
+          <path d="M2 12c3 3 5 4 10 4s7-1 10-4"/>
+        </svg>
+      </div>
+      <div class="header-title-block">
+        <h1>Cartographie de la qualité des eaux de surfaces en nitrates et en phosphore en France métropolitaine</h1>
+        <p class="header-subtitle">Une comparaison entre les normes européennes et suisses</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="header-source">Sources : Naïades, prélèvements 2023-2026</span>
+    </div>
+  </header>
+
+  <!-- ==================== PAGE DÉROULANTE ==================== -->
+  <main id="page-scroll">
+
+    <!-- ======== SECTION 1 : TEXTE INTRODUCTIF ======== -->
+    <section id="section-intro">
+      <div class="intro-container">
+
+        <div class="intro-eyebrow">Contexte & enjeux</div>
+        <h2 class="intro-title">Nitrates et phosphore dans les eaux de surface :<br>et si nous appliquions les normes suisses ?</h2>
+        <p class="intro-lead">La qualité des eaux de surface est encadrée par des réglementations qui varient selon les pays. Mettre en regard les normes européennes et suisses permet de révéler la relativité de ces seuils et de questionner notre ambition collective face à la pollution des cours d'eau.</p>
+
+        <!-- Cartes thématiques (sans icônes, moins arrondies) -->
+        <div class="intro-cards">
+
+          <div class="intro-card card-blue">
+            <h3>Les nitrates (NO₃⁻)</h3>
+            <p>Les nitrates sont une forme de l'azote, essentiels à la croissance végétale mais dangereux en excès. Ils proviennent principalement des <strong>engrais agricoles azotés</strong> et des rejets domestiques. Contrairement au phosphore, ils représentent également un risque direct pour la <strong>santé humaine</strong> : le seuil européen de 50 mg/L correspond aussi à la limite de potabilité de l'eau.</p>
+          </div>
+
+          <div class="intro-card card-green">
+            <h3>Le phosphore total (P)</h3>
+            <p>Le phosphore est issu des <strong>fertilisants, des détergents et des eaux usées</strong>. Présent en excès dans les cours d'eau, il ne présente pas de danger direct pour la santé humaine, mais perturbe profondément les écosystèmes aquatiques. Son seuil est fixé dans une logique de maintien du <em>bon état écologique</em> des masses d'eau.</p>
+          </div>
+
+          <div class="intro-card card-red">
+            <h3>L'eutrophisation : une menace silencieuse</h3>
+            <p>Nitrates et phosphore, lorsqu'ils sont présents en trop grande quantité, provoquent un phénomène commun : l'<strong>eutrophisation</strong>. Cette prolifération excessive d'algues réduit drastiquement l'oxygène dissous dans l'eau, pouvant entraîner la <strong>mort des poissons</strong> et déséquilibrer l'ensemble des écosystèmes aquatiques.</p>
+          </div>
+
+        </div>
+
+        <!-- Comparaison des normes -->
+        <div class="intro-norms">
+          <h3 class="norms-title">Les normes en vigueur</h3>
+          <div class="norms-grid">
+
+            <div class="norm-block">
+              <div class="norm-flag">🇪🇺 Union Européenne</div>
+              <p class="norm-desc">En France, les normes européennes s'appliquent. La <strong>directive nitrates</strong> fixe un seuil contraignant assorti de sanctions financières. Pour le phosphore, le seuil de la <strong>directive cadre sur l'eau (DCE)</strong> est indicatif et guidant pour les gestionnaires de rivières.</p>
+              <div class="norm-values">
+                <div class="norm-val"><span class="norm-param">Nitrates</span><span class="norm-num">50 mg/L</span></div>
+                <div class="norm-val"><span class="norm-param">Phosphore</span><span class="norm-num">0,2 mg/L</span></div>
+              </div>
+            </div>
+
+            <div class="norm-block norm-ch">
+              <div class="norm-flag">🇨🇭 Suisse</div>
+              <p class="norm-desc">La Suisse applique l'<strong>Ordonnance sur la protection des eaux</strong>, avec une politique de <em>précaution</em> nettement plus ambitieuse. Les seuils sont deux fois plus stricts qu'en Europe, reflétant une vision plus protectrice des écosystèmes aquatiques.</p>
+              <div class="norm-values">
+                <div class="norm-val"><span class="norm-param">Nitrates</span><span class="norm-num ch">25 mg/L</span></div>
+                <div class="norm-val"><span class="norm-param">Phosphore</span><span class="norm-num ch">0,1 mg/L</span></div>
+              </div>
+            </div>
+
+     
+
+      </div>
+    </section>
+
+    <!-- ======== SECTION 2 : CARTE + STATS + HISTO ======== -->
+    <section id="section-map">
+      <div class="section-header">
+        <h2 class="section-title">Cartographie interactive</h2>
+        <p class="section-sub">Sélectionnez un paramètre et basculez entre les normes pour visualiser l'état des stations de mesure.</p>
+      </div>
+
+      <div id="map-layout">
+        <div id="map-container">
+          <div id="map"></div>
+          <div id="loading-indicator">
+            <div class="spinner"></div>
+            <span>Chargement des données…</span>
+          </div>
+          <div id="point-counter"></div>
+        </div>
+
+        <aside id="panel">
+          <div class="panel-badge">
+            <span class="badge-dot"></span>
+            <span id="current-param">Nitrates</span>
+          </div>
+
+          <section class="panel-section">
+            <label class="section-label">Paramètre</label>
+            <select id="layer-select">
+              <option value="nitrates">Nitrates (NO₃⁻)</option>
+              <option value="phosphore">Phosphore total (P)</option>
+            </select>
+          </section>
+
+          <section class="panel-section">
+            <label class="section-label">Recherche station</label>
+            <div id="search-wrapper">
+              <div class="search-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <input type="text" id="search-input" placeholder="Nom de la station…" autocomplete="off"/>
+              <div id="search-results"></div>
+            </div>
+          </section>
+
+          <section class="panel-section">
+            <label class="section-label">Norme de référence</label>
+            <button id="toggle-classif"><span class="btn-icon">⇄</span> –</button>
+          </section>
+
+          <section class="panel-section">
+            <label class="section-label">Légende</label>
+            <div id="legend-items"></div>
+          </section>
+
+          <section class="panel-section">
+            <label class="section-label">Statistiques <span class="label-sub">(vue courante)</span></label>
+            <div class="stats-grid">
+              <div class="stat-card"><div class="stat-label">Stations</div><div class="stat-value" id="stat-count">–</div></div>
+              <div class="stat-card"><div class="stat-label">Moyenne</div><div class="stat-value" id="stat-avg">–</div></div>
+              <div class="stat-card"><div class="stat-label">Maximum</div><div class="stat-value accent-red" id="stat-max">–</div></div>
+              <div class="stat-card"><div class="stat-label">Minimum</div><div class="stat-value accent-green" id="stat-min">–</div></div>
+            </div>
+          </section>
+
+          <section class="panel-section">
+            <label class="section-label">Distribution des classes <span class="label-sub">(vue courante)</span></label>
+            <div id="histogram-wrapper">
+              <canvas id="histogram-canvas"></canvas>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======== SECTION 3 : DATAVIZ FLOURISH ======== -->
+    <section id="section-dataviz">
+      <div class="section-header">
+        <h2 class="section-title">Explorez les données à différentes échelles</h2>
+        
+      </div>
+
+      <!-- Ligne 1 : Camemberts + Diagramme barres -->
+      <div class="dataviz-row">
+        <div class="dataviz-card" onclick="openLightbox('lb-1')">
+          <h3 class="dataviz-title">Répartition par classes <span class="expand-hint">↗ agrandir</span></h3>
+          <div class="flourish-wrap">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/28414589">
+              <script src="https://public.flourish.studio/resources/embed.js"></script>
+              <noscript><img src="https://public.flourish.studio/visualisation/28414589/thumbnail" width="100%" alt="visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+        <div class="dataviz-card" onclick="openLightbox('lb-2')">
+          <h3 class="dataviz-title">Distribution par régions <span class="expand-hint">↗ agrandir</span></h3>
+          <div class="flourish-wrap">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/28431639">
+              <script src="https://public.flourish.studio/resources/embed.js"></script>
+              <noscript><img src="https://public.flourish.studio/visualisation/28431639/thumbnail" width="100%" alt="visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ligne 2 : Carto phosphore + Carto nitrates -->
+      <div class="dataviz-row">
+        <div class="dataviz-card dataviz-card-map" onclick="openLightbox('lb-3')">
+          <h3 class="dataviz-title">Cartographie – Phosphore <span class="expand-hint">↗ agrandir</span></h3>
+          <div class="flourish-wrap flourish-wrap-map">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/28431953">
+              <script src="https://public.flourish.studio/resources/embed.js"></script>
+              <noscript><img src="https://public.flourish.studio/visualisation/28431953/thumbnail" width="100%" alt="visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+        <div class="dataviz-card dataviz-card-map" onclick="openLightbox('lb-4')">
+          <h3 class="dataviz-title">Cartographie – Nitrates <span class="expand-hint">↗ agrandir</span></h3>
+          <div class="flourish-wrap flourish-wrap-map">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/28432708">
+              <script src="https://public.flourish.studio/resources/embed.js"></script>
+              <noscript><img src="https://public.flourish.studio/visualisation/28432708/thumbnail" width="100%" alt="visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== LIGHTBOXES ==================== -->
+  <div class="lightbox" id="lb-1" onclick="closeLightbox(this)">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox(document.getElementById('lb-1'))">✕</button>
+      <div class="flourish-embed flourish-chart" data-src="visualisation/28414589">
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lb-2" onclick="closeLightbox(this)">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox(document.getElementById('lb-2'))">✕</button>
+      <div class="flourish-embed flourish-chart" data-src="visualisation/28431639">
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lb-3" onclick="closeLightbox(this)">
+    <div class="lightbox-inner lightbox-inner-map" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox(document.getElementById('lb-3'))">✕</button>
+      <div class="flourish-embed flourish-chart" data-src="visualisation/28431953">
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lb-4" onclick="closeLightbox(this)">
+    <div class="lightbox-inner lightbox-inner-map" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox(document.getElementById('lb-4'))">✕</button>
+      <div class="flourish-embed flourish-chart" data-src="visualisation/28432708">
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(id) {
+      const lb = document.getElementById(id);
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(lb) {
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.lightbox.active').forEach(lb => closeLightbox(lb));
+      }
+    });
+  </script>
+
+  <script src="projet_eau_normes.js"></script>
+</body>
+</html>
