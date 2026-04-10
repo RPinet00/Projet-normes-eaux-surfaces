@@ -15,7 +15,7 @@
   <header id="app-header">
     <div class="header-left">
       <div class="header-logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#004655" stroke-width="2">
           <path d="M12 2C6 2 2 7 2 12s4 10 10 10 10-4.5 10-10S18 2 12 2z"/>
           <path d="M2 12c3-3 5-4 10-4s7 1 10 4"/>
           <path d="M2 12c3 3 5 4 10 4s7-1 10-4"/>
@@ -44,16 +44,9 @@
         <p class="intro-lead">La qualité des eaux de surface est encadrée par des réglementations qui varient selon les pays. Mettre en regard les normes européennes et suisses permet de révéler la relativité de ces seuils et de questionner notre ambition collective face à la pollution des cours d'eau.</p>
       </div>
 
-      <!--
-        INFOGRAPHIE : conteneur propre, indépendant de .intro-container
-        width: 100% → s'étend sur toute la largeur de la page
-        display: flex + justify-content: center → centre l'image
-      -->
       <div class="infographic-section">
         <img src="infographie.png" alt="Infographie sur la qualité des eaux, nitrates et phosphore" />
       </div>
-
-     
 
     <!-- ======== SECTION 2 : CARTE + STATS + HISTO ======== -->
     <section id="section-map">
@@ -137,8 +130,8 @@
 
       <!-- Ligne 1 : Camemberts + Diagramme barres -->
       <div class="dataviz-row">
-        <div class="dataviz-card" onclick="openLightbox('lb-1')">
-          <h3 class="dataviz-title">Répartition par classes <span class="expand-hint">↗ agrandir</span></h3>
+        <div class="dataviz-card">
+          <h3 class="dataviz-title">Répartition par classes</h3>
           <div class="flourish-wrap">
             <div class="flourish-embed flourish-chart" data-src="visualisation/28414589">
               <script src="https://public.flourish.studio/resources/embed.js"></script>
@@ -146,8 +139,8 @@
             </div>
           </div>
         </div>
-        <div class="dataviz-card" onclick="openLightbox('lb-2')">
-          <h3 class="dataviz-title">Distribution par régions <span class="expand-hint">↗ agrandir</span></h3>
+        <div class="dataviz-card">
+          <h3 class="dataviz-title">Distribution par régions</h3>
           <div class="flourish-wrap">
             <div class="flourish-embed flourish-chart" data-src="visualisation/28431639">
               <script src="https://public.flourish.studio/resources/embed.js"></script>
@@ -159,8 +152,8 @@
 
       <!-- Ligne 2 : Carto phosphore + Carto nitrates -->
       <div class="dataviz-row">
-        <div class="dataviz-card dataviz-card-map" onclick="openLightbox('lb-3')">
-          <h3 class="dataviz-title">Cartographie – Phosphore <span class="expand-hint">↗ agrandir</span></h3>
+        <div class="dataviz-card dataviz-card-map">
+          <h3 class="dataviz-title">Cartographie – Phosphore</h3>
           <div class="flourish-wrap flourish-wrap-map">
             <div class="flourish-embed flourish-chart" data-src="visualisation/28431953">
               <script src="https://public.flourish.studio/resources/embed.js"></script>
@@ -168,8 +161,8 @@
             </div>
           </div>
         </div>
-        <div class="dataviz-card dataviz-card-map" onclick="openLightbox('lb-4')">
-          <h3 class="dataviz-title">Cartographie – Nitrates <span class="expand-hint">↗ agrandir</span></h3>
+        <div class="dataviz-card dataviz-card-map">
+          <h3 class="dataviz-title">Cartographie – Nitrates</h3>
           <div class="flourish-wrap flourish-wrap-map">
             <div class="flourish-embed flourish-chart" data-src="visualisation/28432708">
               <script src="https://public.flourish.studio/resources/embed.js"></script>
@@ -181,23 +174,6 @@
     </section>
 
   </main>
-
-  <script>
-    function openLightbox(id) {
-      const lb = document.getElementById(id);
-      lb.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox(lb) {
-      lb.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.lightbox.active').forEach(lb => closeLightbox(lb));
-      }
-    });
-  </script>
 
   <script src="projet_eau_normes.js"></script>
 </body>
