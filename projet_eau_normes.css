@@ -35,11 +35,56 @@ body {
 #app-header {
   position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
   z-index: 1000; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  gap: 20px;
 }
 
-.header-title-block h1 { font-family: var(--font-head); font-size: 14px; color: var(--navy); }
-.header-subtitle { font-size: 12px; color: var(--teal); }
+/* Côté gauche : logo + titres en ligne */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.header-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-title-block {
+  min-width: 0;
+}
+
+.header-title-block h1 {
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--teal);
+}
+
+/* Côté droit : source alignée à droite */
+.header-right {
+  flex-shrink: 0;
+}
+
+.header-source {
+  font-size: 12px;
+  color: var(--text-mid);
+  white-space: nowrap;
+}
 
 #page-scroll { padding-top: var(--header-h); }
 
@@ -74,9 +119,7 @@ body {
 }
 
 /* =============================================
-   CONTENEUR DÉDIÉ INFOGRAPHIE — CENTRAGE GARANTI
-   Indépendant de tout parent contraignant.
-   Utilise un bloc full-width avec flexbox centré.
+   CONTENEUR DÉDIÉ INFOGRAPHIE
 ============================================= */
 .infographic-section {
   width: 100%;
@@ -95,7 +138,7 @@ body {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border);
-  margin: 0 auto; /* sécurité supplémentaire */
+  margin: 0 auto;
 }
 
 /* =============================================
@@ -430,8 +473,9 @@ select {
   display: flex;
   gap: 24px;
   max-width: 1400px;
-  margin: 0 auto 24px;
+  margin: 0 auto 48px;
   padding: 0 36px;
+  align-items: flex-start; /* les cartes ne s'étirent plus l'une sur l'autre */
 }
 
 .dataviz-card {
@@ -439,15 +483,13 @@ select {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 20px 20px 28px;
   box-shadow: var(--shadow-md);
-  cursor: pointer;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-
-.dataviz-card:hover {
-  box-shadow: 0 12px 36px rgba(0,70,85,0.15);
-  transform: translateY(-2px);
+  display: flex;
+  flex-direction: column;
+  /* hauteur déterminée par le contenu */
+  height: auto;
+  overflow: visible;
 }
 
 .dataviz-card-map { flex: 1; }
@@ -458,58 +500,37 @@ select {
   font-weight: 700;
   color: var(--navy);
   margin-bottom: 14px;
+  flex-shrink: 0;
 }
 
-.expand-hint {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--teal);
-}
+/* .expand-hint supprimé — plus de boutons agrandir */
 
-.flourish-wrap       { width: 100%; height: 340px; }
-.flourish-wrap-map   { height: 400px; }
-
-/* =============================================
-   LIGHTBOXES
-============================================= */
-
-
-
-/*.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
-
-.lightbox.active { display: flex; }
-
-.lightbox-inner {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+/* Wrapper ligne 1 : graphiques (camembert + barres) */
+.flourish-wrap {
   width: 100%;
-  max-width: 900px;
-  max-height: 90vh;
-  overflow: auto;
-  position: relative;
+  height: 620px;
+  flex-shrink: 0;
 }
 
-.lightbox-inner-map { max-width: 1100px; }
-
-.lightbox-close {
-  position: absolute;
-  top: 12px; right: 16px;
-  background: none; border: none;
-  font-size: 20px; cursor: pointer;
-  color: var(--text-mid);
+/* Wrapper ligne 2 : cartes départementales — plus hautes */
+.flourish-wrap-map {
+  width: 100%;
+  height: 820px;
+  flex-shrink: 0;
 }
 
-.lightbox-close:hover { color: var(--navy); }
+/* Les iframes Flourish doivent remplir leur wrapper */
+.flourish-wrap .flourish-embed,
+.flourish-wrap-map .flourish-embed {
+  width: 100%;
+  height: 100%;
+}
+
+.flourish-wrap iframe,
+.flourish-wrap-map iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
 
 /* =============================================
    RESPONSIVE
@@ -523,4 +544,5 @@ select {
   #panel                { width: 100%; }
   #map-container        { height: 400px; }
   .dataviz-row          { flex-direction: column; padding: 0 20px; }
+  .header-title-block h1 { font-size: 11px; }
 }
